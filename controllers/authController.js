@@ -93,7 +93,7 @@ exports.registerCompany = async (req, res) => {
       email,
       password: hash,
       role: "company",
-      companyStatus: "pending",
+      companyStatus: "Pending",
       isVerified: true,
     });
 
@@ -137,11 +137,15 @@ exports.login = async (req, res) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
+    // Calculate expiry date (7 days from now)
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 7);
+
     await RefreshToken.findOneAndUpdate(
       { userId: user._id },
       {
         token: refreshToken,
-        expiresAt: process.env.JWT_REFRESH_EXPIRATION,
+        expiresAt: expiryDate,
       },
       { upsert: true }
     );

@@ -1,8 +1,3 @@
-const cors= require("cors");
-
-
-app.use(cors({origin: ["http://localhost:5173", "https://frontendlovable.lovable.app"]}));
-
 require("dotenv").config();
 
 const app=require("./app");
