@@ -141,9 +141,7 @@ exports.login = async (req, res) => {
       { userId: user._id },
       {
         token: refreshToken,
-        expiresAt: new Date(
-          Date.now() + 7 * 24 * 60 * 60 * 1000
-        ),
+        expiresAt: process.env.JWT_REFRESH_EXPIRATION,
       },
       { upsert: true }
     );
